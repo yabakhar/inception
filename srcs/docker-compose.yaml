@@ -4,12 +4,22 @@ services:
     build: ./requirements/nginx
     container_name: nginx
     restart: always
+    image: nginx
     ports:
       - "443:443"
+    volumes:
+      - wordpress:/var/www/wordpress/
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
     restart: always
+    image: wordpress
+    expose: 
+      - 9000
+    volumes:
+      - wordpress:/var/www/wordpress/
+volumes:
+  wordpress:
   # db:
   #   image: mysql:5.7
   #   container_name: mysqldb
