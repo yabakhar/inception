@@ -6,8 +6,8 @@ RUN openssl req -x509 -newkey rsa:2048 -nodes -keyout /server.key -out /server.c
 
 COPY ./conf/default /etc/nginx/sites-available/
 
-EXPOSE 443
+# EXPOSE 443
 
-RUN rm -rf var/www/html
+RUN rm -rf var/www/
 
 CMD ["nginx", "-g", "daemon off;"]
