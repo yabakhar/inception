@@ -25,7 +25,7 @@ services:
       - MYSQL_DATABASE=yabakhar
 
   mariadb:
-    image: mariadb:10.7
+    build: ./requirements/mariadb/
     ports:
       - 3306:3306
     environment:
@@ -33,14 +33,20 @@ services:
       - MYSQL_PASSWORD=yabakhar
       - MYSQL_USER=yabakhar
       - MYSQL_DATABASE=yabakhar
-    # build: ./requirements/mariadb
-    # image: mariadb:latest
     container_name: mariadb
-    # restart: always
-    # ports:
-    #   - 3307:3306
-    # env_file:
-    #   - .env
+    volumes:
+      - DB:/var/lib/mysql
 
 volumes:
   wordpress:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /Users/yabakhar/Desktop/inception_volume/wordpress
+  DB:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /Users/yabakhar/Desktop/inception_volume/mariadb
