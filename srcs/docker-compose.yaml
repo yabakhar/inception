@@ -7,17 +7,15 @@ services:
     image: nginx
     ports:
       - "443:443"
-    volumes:
-      - wordpress:/var/www/wordpress/
+    # volumes:
+    #   - wordpress:/var/www/wordpress/
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
     restart: always
     image: wordpress
-    expose: 
-      - 9000
-    volumes:
-      - wordpress:/var/www/wordpress/
+    # volumes:
+    #   - wordpress:/var/www/wordpress/
     environment:
       - MYSQL_ROOT_PASSWORD=yabakhar
       - MYSQL_PASSWORD=yabakhar
@@ -26,27 +24,25 @@ services:
 
   mariadb:
     build: ./requirements/mariadb/
-    ports:
-      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=yabakhar
       - MYSQL_PASSWORD=yabakhar
       - MYSQL_USER=yabakhar
       - MYSQL_DATABASE=yabakhar
     container_name: mariadb
-    volumes:
-      - DB:/var/lib/mysql
+#     volumes:
+#       - DB:/var/lib/mysql
 
-volumes:
-  wordpress:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /Users/yabakhar/Desktop/inception_volume/wordpress
-  DB:
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: /Users/yabakhar/Desktop/inception_volume/mariadb
+# volumes:
+#   wordpress:
+#     driver: local
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: /Users/yabakhar/Desktop/inception_volume/wordpress
+#   DB:
+#     driver: local
+#     driver_opts:
+#       o: bind
+#       type: none
+#       device: /Users/yabakhar/Desktop/inception_volume/mariadb
