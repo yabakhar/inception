@@ -1,34 +1,31 @@
 version: '3.7'
 services:
-  nginx:
-    build: ./requirements/nginx
-    container_name: nginx
-    restart: always
-    image: nginx
-    ports:
-      - "443:443"
-    # volumes:
-    #   - wordpress:/var/www/wordpress/
-  wordpress:
-    build: ./requirements/wordpress
-    container_name: wordpress
-    restart: always
-    image: wordpress
-    # volumes:
-    #   - wordpress:/var/www/wordpress/
-    environment:
-      - MYSQL_ROOT_PASSWORD=yabakhar
-      - MYSQL_PASSWORD=yabakhar
-      - MYSQL_USER=yabakhar
-      - MYSQL_DATABASE=yabakhar
+  # nginx:
+  #   build: ./requirements/nginx
+  #   container_name: nginx
+  #   restart: always
+  #   image: nginx
+  #   ports:
+  #     - "443:443"
+  #   # volumes:
+  #   #   - wordpress:/var/www/wordpress/
+  # wordpress:
+  #   build: ./requirements/wordpress
+  #   container_name: wordpress
+  #   restart: always
+  #   image: wordpress
+  #   # volumes:
+  #   #   - wordpress:/var/www/wordpress/
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=yabakhar
+  #     - MYSQL_PASSWORD=yabakhar
+  #     - MYSQL_USER=yabakhar
+  #     - MYSQL_DATABASE=yabakhar
 
   mariadb:
     build: ./requirements/mariadb/
-    environment:
-      - MYSQL_ROOT_PASSWORD=yabakhar
-      - MYSQL_PASSWORD=yabakhar
-      - MYSQL_USER=yabakhar
-      - MYSQL_DATABASE=yabakhar
+    env_file:
+      - .env
     container_name: mariadb
 #     volumes:
 #       - DB:/var/lib/mysql

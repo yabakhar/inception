@@ -2,7 +2,7 @@ FROM debian:buster
 
 RUN apt-get update && \
     apt-get install -y wget && \
-    apt-get install -y php php-mysql php-common php-mbstring php-xmlrpc php-fpm php-soap php-gd php-xml php-intl php-cli php php-ldap php-zip php-curl
+    apt-get install -y php php-mysql php-fpm  php-curl
 
 RUN wget http://wordpress.org/latest.tar.gz \
     && tar -xzvf latest.tar.gz && rm -rf latest.tar.gz \
@@ -14,7 +14,7 @@ RUN chown -R www-data:www-data /var/www/wordpress
 
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-   && php wp-cli.phar --info \
+   && wp-cli.phar --info \
    && chmod +x wp-cli.phar \
    && mv wp-cli.phar /usr/local/bin/wp 
 
