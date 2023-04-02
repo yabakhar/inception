@@ -2,47 +2,28 @@ version: '3.7'
 services:
   nginx:
     build: ./requirements/nginx/
-    container_name: mynginx
+    container_name: nginx
     restart: always
+    depends_on:
+      - mariadb
     env_file:
       - .env
-    image: nginximage
+    image: nginx
     ports:
       - "443:443"
-  #   # volumes:
-  #   #   - wordpress:/var/www/wordpress/
-  # wordpress:
-  #   build: ./requirements/wordpress
-  #   container_name: wordpress
-  #   restart: always
-  #   image: wordpress
-  #   # volumes:
-  #   #   - wordpress:/var/www/wordpress/
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=yabakhar
-  #     - MYSQL_PASSWORD=yabakhar
-  #     - MYSQL_USER=yabakhar
-  #     - MYSQL_DATABASE=yabakhar
-
+  wordpress:
+    build: ./requirements/wordpress/
+    container_name: wordpress
+    restart: always
+    image: wordpress
+    depends_on:
+      - nginx
+    env_file:
+      - .env
   mariadb:
     build: ./requirements/mariadb/
     env_file:
       - .env
-    container_name: mymariadb
-    image: mariadbimage
-#     volumes:
-#       - DB:/var/lib/mysql
-
-# volumes:
-#   wordpress:
-#     driver: local
-#     driver_opts:
-#       o: bind
-#       type: none
-#       device: /Users/yabakhar/Desktop/inception_volume/wordpress
-#   DB:
-#     driver: local
-#     driver_opts:
-#       o: bind
-#       type: none
-#       device: /Users/yabakhar/Desktop/inception_volume/mariadb
+    restart: always
+    container_name: mariadb
+    image: mariadb
