@@ -5,7 +5,7 @@ if [ ! -d /run/php ]; then
     chmod -R 777 /run/php
 fi
 
-if [ ! -d /var/www/wordpress ]; then
+if [ ! -f /var/www/wordpress/wp-config.php ]; then
     mkdir -p /var/www/wordpress
     chmod -R 777 /var/www/wordpress
     chown -R www-data:www-data /var/www/wordpress    
