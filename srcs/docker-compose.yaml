@@ -5,12 +5,14 @@ services:
     container_name: nginx
     restart: always
     depends_on:
-      - mariadb
+      - wordpress
     env_file:
       - .env
     image: nginx
     ports:
       - "443:443"
+    networks:
+      - my-network
     volumes:
       - wordpress:/var/www/wordpress/
 
@@ -20,9 +22,11 @@ services:
     restart: always
     image: wordpress
     depends_on:
-      - nginx
+      - mariadb
     env_file:
       - .env
+    networks:
+      - my-network
     volumes:
       - wordpress:/var/www/wordpress/
 
@@ -33,8 +37,16 @@ services:
     restart: always
     container_name: mariadb
     image: mariadb
+    networks:
+      - my-network
     volumes:
       - DB:/var/lib/mysql
+
+
+
+networks:
+  my-network:
+    driver: bridge
 
 volumes:
   wordpress:
