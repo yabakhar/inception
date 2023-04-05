@@ -6,16 +6,14 @@ up:
 down:
 	docker-compose -f ./srcs/docker-compose.yaml down
 fclean:
-	- clean
+	- clear
 	- docker stop $(docker  ps  -q) 
-	- docker rmi -f $(docker ps -aq )
+	- docker rm -f $(docker ps -aq )
 	- docker rmi -f $(docker image ls  -q)
-	- docker volume rm srcs_wordpress
-	- docker volume rm srcs_DB 
+	- docker volume rm $(docker volume ls -q)
 	- rm -rf /Users/yabakhar/Desktop/inception_volume/mariadb/*
 	- rm -rf /Users/yabakhar/Desktop/inception_volume/wordpress/*
 re: fclean init up
-
 
 wo: 
 	- docker exec -it wordpress bash

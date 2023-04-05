@@ -42,6 +42,18 @@ services:
     volumes:
       - DB:/var/lib/mysql
 
+  adminer:
+    build: ./requirements/bonus/adminer/
+    env_file:
+      - .env
+    restart: always
+    ports: 
+      - 80:80
+    container_name: adminer
+    image: adminer
+    networks:
+      - my-network
+
 
 
 networks:
