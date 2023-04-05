@@ -3,7 +3,7 @@ services:
   nginx:
     build: ./requirements/nginx/
     container_name: nginx
-    restart: always
+    restart: on-failure
     depends_on:
       - wordpress
     env_file:
@@ -19,7 +19,7 @@ services:
   wordpress:
     build: ./requirements/wordpress/
     container_name: wordpress
-    restart: always
+    restart: on-failure
     image: wordpress
     depends_on:
       - mariadb
@@ -34,7 +34,7 @@ services:
     build: ./requirements/mariadb/
     env_file:
       - .env
-    restart: always
+    restart: on-failure
     container_name: mariadb
     image: mariadb
     networks:
@@ -46,11 +46,23 @@ services:
     build: ./requirements/bonus/adminer/
     env_file:
       - .env
-    restart: always
+    restart: on-failure
     ports: 
       - 80:80
     container_name: adminer
     image: adminer
+    networks:
+      - my-network
+
+  portainer:
+    build: ./requirements/bonus/portainer/
+    env_file:
+      - .env
+    restart: on-failure
+    ports: 
+      - 9001:9000
+    container_name: portainer
+    image: portainer
     networks:
       - my-network
 
