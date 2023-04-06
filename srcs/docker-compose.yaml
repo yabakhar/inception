@@ -48,24 +48,46 @@ services:
       - .env
     restart: on-failure
     ports: 
-      - 80:80
+      - 8080:8080
     container_name: adminer
     image: adminer
     networks:
       - my-network
 
-  portainer:
-    build: ./requirements/bonus/portainer/
-    env_file:
-      - .env
-    restart: on-failure
-    ports: 
-      - 9001:9000
-    container_name: portainer
-    image: portainer
+  cadvisor:
+    build: ./requirements/bonus/cadvisor
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk:/dev/disk/:ro
     networks:
       - my-network
+    container_name: cadvisor
+    image: cadvisor
 
+  redis:
+    build: ./requirements/bonus/redis
+    restart: always
+    networks:
+      - my-network
+    ports:
+      - "6379:6379"
+    container_name: redis
+
+  staticweb:
+    build: ./requirements/bonus/static_website
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - my-network
+    container_name: staticweb
+    image: staticweb
 
 
 networks:

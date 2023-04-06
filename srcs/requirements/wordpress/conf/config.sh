@@ -16,6 +16,13 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
     wp core install --allow-root --url=localhost --title=yabakhar --admin_user=yabakhar --admin_password=yabakhar --admin_email=yabakhar@example.com --skip-email
     wp user create --allow-root avnn ann@exavmple.com --user_pass=Qwerty.123
     sed -i 's|listen = /run/php/php7.3-fpm.sock|listen = 0.0.0.0:9000|g' /etc/php/7.3/fpm/pool.d/www.conf
+    wp plugin install redis-cache --activate --allow-root
+    wp redis enable --allow-root
+    wp config set --type=constant --allow-root --raw WP_CACHE true
+    wp config set --type=constant --allow-root --raw WP_REDIS_HOST redis
+    wp config set --type=constant --allow-root --raw WP_REDIS_PORT 6379
+    wp config set --type=constant --allow-root --raw WP_REDIS_SCHEME tcp
 fi
+
 
 /usr/sbin/php-fpm7.3 -F
