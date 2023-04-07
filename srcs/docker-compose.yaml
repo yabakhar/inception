@@ -99,9 +99,9 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /Users/yabakhar/Desktop/inception_volume/wordpress
+      device: /home/yabakhar/Desktop/inception_volume/wordpress
   DB:
     driver_opts:
       o: bind
       type: none
-      device: /Users/yabakhar/Desktop/inception_volume/mariadb
+      device: /home/yabakhar/Desktop/inception_volume/mariadb
