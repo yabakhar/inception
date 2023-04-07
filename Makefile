@@ -1,6 +1,6 @@
 
 init:
-	mkdir -p /Users/yabakhar/Desktop/inception_volume/wordpress /Users/yabakhar/Desktop/inception_volume/mariadb
+	mkdir -p /home/yabakhar/Desktop/inception_volume/wordpress /home/yabakhar/Desktop/inception_volume/mariadb
 up: 
 	docker-compose -f ./srcs/docker-compose.yaml up --build
 down:
@@ -11,8 +11,8 @@ fclean:
 	- docker rm -f $(docker ps -aq )
 	- docker rmi -f $(docker image ls  -q)
 	- docker volume rm $(docker volume ls -q)
-	- rm -rf /Users/yabakhar/Desktop/inception_volume/mariadb/*
-	- rm -rf /Users/yabakhar/Desktop/inception_volume/wordpress/*
+	- rm -rf /home/yabakhar/Desktop/inception_volume/mariadb/*
+	- rm -rf /home/yabakhar/Desktop/inception_volume/wordpress/*
 re: fclean init up
 
 wo: 
